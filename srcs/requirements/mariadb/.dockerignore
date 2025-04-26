@@ -1,0 +1,14 @@
+# Ignore Git stuff
+**/.gitkeep
+**/.gitignore
+
+# Ignore Docker leftovers
+Dockerfile~
+docker-compose.yml~
+
+# Ignore OS files
+**/.DS_Store
+**/Thumbs.db
+
+# Ignore Tools
+tools/
