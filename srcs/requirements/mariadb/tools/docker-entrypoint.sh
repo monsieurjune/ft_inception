@@ -3,7 +3,8 @@
 # Set to exit when cmd return non-zero
 set -e
 
-# SQL Code
+# ===== SQL Code ======
+
 SQL_COMMANDS=""
 
 # Create Database
@@ -26,7 +27,10 @@ SQL_COMMANDS="${SQL_COMMANDS}DELETE FROM mysql.user WHERE user = '';\n"
 # Apply Change
 SQL_COMMANDS="${SQL_COMMANDS}FLUSH PRIVILEGES;\n"
 
-# Initialize DB if empty
+# ======================
+
+# ======= SQL ==========
+
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     # Create mysql user in db
     mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
@@ -34,16 +38,18 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     # Start MariaDB temporarily
     mysqld_safe --skip-networking &
 
-    # Make sure that MariaDB is indeed started
+    # Plain Sleep for a seconds, as it's certain that there is error.
+    # if it still doesn't active after 5-10 sec
     sleep 5
 
-    # Append SQL to DB
+    # Append SQL to MariaDB
     printf "%s" "${SQL_COMMANDS}" | mariadb -u root
 
     # Stop Temporary DB
-    killall mysqld
-    sleep 5
+    mariadb-admin shutdown
 fi
+
+# ======================
 
 # Unset Variable
 SQL_COMMANDS=""
