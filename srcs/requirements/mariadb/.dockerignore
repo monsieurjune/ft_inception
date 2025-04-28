@@ -12,3 +12,4 @@ docker-compose.yml~
 
 # Ignore Tools
 tools/
+!tools/docker-entrypoint.sh
