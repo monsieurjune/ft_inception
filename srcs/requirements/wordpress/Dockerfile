@@ -1,4 +1,4 @@
-FROM alpine:3.21
+FROM alpine:3.20
 
 # Install PHP8.2-fpm and associate module
 RUN apk add --no-cache php82-fpm \

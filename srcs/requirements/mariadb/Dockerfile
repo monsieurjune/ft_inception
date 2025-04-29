@@ -1,4 +1,4 @@
-FROM alpine:3.21
+FROM alpine:3.20
 
 # Install Mariadb
 RUN apk add --no-cache mariadb \
