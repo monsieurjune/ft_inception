@@ -13,7 +13,7 @@ printf "%s" "SSL_STATE [default: <blank>]: "; read SSL_STATE
 printf "%s" "SSL_LOCALITY [default: <blank>]: "; read SSL_LOCALITY
 printf "%s" "SSL_COMPANY [default: <blank>]: "; read SSL_COMPANY
 printf "%s" "SSL_DEPARTMENT [default: <blank>]: "; read SSL_DEPARTMENT
-printf "%s" "SSL_MONTH_AGE [default: 12]: "; read SSL_MONTH_AGE
+printf "%s" "SSL_DAY_AGE [default: 365]: "; read SSL_DAY_AGE
 
 # Set default value
 if [ -z "$DOMAIN_NAME" ]; then
@@ -40,8 +40,8 @@ fi
 if [ -z "$SSL_DEPARTMENT" ]; then
     SSL_DEPARTMENT="''"
 fi
-if [ -z "$SSL_MONTH_AGE" ]; then
-    SSL_MONTH_AGE=12
+if [ -z "$SSL_DAY_AGE" ]; then
+    SSL_DAY_AGE=365
 fi
 
 # Create String for .env
@@ -53,7 +53,7 @@ ENV_STR="${ENV_STR}SSL_STATE=${SSL_STATE}\n"
 ENV_STR="${ENV_STR}SSL_LOCALITY=${SSL_LOCALITY}\n"
 ENV_STR="${ENV_STR}SSL_COMPANY=${SSL_COMPANY}\n"
 ENV_STR="${ENV_STR}SSL_DEPARTMENT=${SSL_DEPARTMENT}\n"
-ENV_STR="${ENV_STR}SSL_MONTH_AGE=${SSL_MONTH_AGE}\n"
+ENV_STR="${ENV_STR}SSL_DAY_AGE=${SSL_DAY_AGE}\n"
 
 # Create env file
 echo $ENV_STR > srcs/.env
