@@ -57,7 +57,7 @@ services:
     networks:
       - inception-network
     ports:
-      - "8080:80"
+      - "8443:443"
     volumes:
       - ft-inception-wp-data:/var/www/html:ro
     restart: always
