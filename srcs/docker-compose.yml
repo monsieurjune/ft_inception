@@ -60,22 +60,24 @@ services:
     networks:
       - inception-network
     ports:
-      - "8443:443"
+      - "443:443"
     volumes:
       - ft-inception-wp-data:/var/www/html:ro
     restart: always
 
 volumes:
   ft-inception-db-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/db
   ft-inception-wp-data:
-
-# volumes:
-#   mariadb-data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /srv/docker-volumes/mariadb_data
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/wp
 
 networks:
   inception-network:
