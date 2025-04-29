@@ -26,7 +26,10 @@ services:
   wp-0:
     depends_on:
       - db-0
-    image: wordpress:6.8-php8.2-fpm-alpine
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    image: ft_wordpress:1.0
     container_name: ft-inception-wp-0
     networks:
       - inception-network
@@ -35,8 +38,8 @@ services:
     volumes:
       - ft-inception-wp-data:/var/www/html:rw
     secrets:
+      - credentials
       - db_password
-      - db_root_password
     env_file:
       - .env
     environment:
