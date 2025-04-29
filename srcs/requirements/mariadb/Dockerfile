@@ -1,5 +1,3 @@
-# FROM mariadb:11.8-noble-rc
-
 FROM alpine:3.21
 
 # Install Mariadb
@@ -16,10 +14,9 @@ COPY ./conf /etc/my.cnf.d
 # Expose Port
 EXPOSE 3306
 
-# Setup Database
-COPY ./tools/docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
+# Copy entrypoint
+COPY ./tools/docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 
 # Start MariaDB
-CMD ["mariadbd"]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]

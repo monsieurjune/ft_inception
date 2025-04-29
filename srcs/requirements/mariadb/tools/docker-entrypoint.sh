@@ -55,4 +55,4 @@ fi
 SQL_COMMANDS=""
 
 # Execute default CMD
-exec su mysql -s /bin/sh -c "exec $@"
+exec su mysql -s /bin/sh -c "exec mariadbd"
