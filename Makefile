@@ -22,6 +22,8 @@ MARIA_DIR			:= $(REQ_DIR)/mariadb
 
 # Project Rules
 
+all: up
+
 up:
 	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) up --detach --build
 
@@ -31,8 +33,13 @@ start:
 stop:
 	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) stop
 
-restart:
-	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) restart
-
 down:
 	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) down
+
+fdown:
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) down -v
+
+re: fdown up
+
+restart:
+	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) restart
