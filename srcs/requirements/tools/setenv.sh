@@ -56,4 +56,4 @@ ENV_STR="${ENV_STR}SSL_DEPARTMENT=${SSL_DEPARTMENT}\n"
 ENV_STR="${ENV_STR}SSL_DAY_AGE=${SSL_DAY_AGE}\n"
 
 # Create env file
-echo $ENV_STR > srcs/.env
+echo -e $ENV_STR > srcs/.env

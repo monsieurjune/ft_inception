@@ -41,4 +41,4 @@ NGINX_STR="${NGINX_STR}    }\n"
 NGINX_STR="${NGINX_STR}}"
 
 # Create file
-echo "${NGINX_STR}" > $DOWNLOAD_DIR/$NGINX_FILE
+echo -e "${NGINX_STR}" > $DOWNLOAD_DIR/$NGINX_FILE
