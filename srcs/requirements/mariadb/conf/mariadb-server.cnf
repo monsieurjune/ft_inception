@@ -2,37 +2,3 @@
 # ============= Basic Settings =============
 bind-address = 0.0.0.0        # Accept connections from anywhere (or restrict it)
 port = 3306                   # Default MariaDB port
-
-# ============= Authentication =============
-skip-name-resolve             = 1    # Skip DNS lookups for faster auth
-
-# ============= Performance Tuning =============
-max_connections = 200         # Max simultaneous clients
-wait_timeout = 28800          # How long a connection can stay idle (seconds)
-interactive_timeout = 28800   # Idle timeout for interactive clients
-
-# Buffer sizes (memory)
-key_buffer_size = 64M           # Index block buffer (only MyISAM)
-innodb_buffer_pool_size = 512M  # Main RAM buffer (very important for InnoDB tables)
-
-# ============= Storage Engine Settings =============
-default_storage_engine = InnoDB  # Best default (transactional, reliable)
-
-# InnoDB specific tuning
-innodb_flush_log_at_trx_commit = 1  # Safer but slightly slower (set 2 for more speed, less safety)
-innodb_log_buffer_size = 8M         # Buffer size for log data
-innodb_file_per_table = 1           # Store each InnoDB table in its own file
-
-# ============= Logging =============
-log_error = /var/log/mysql/error.log  # Error log file
-slow_query_log = 1                    # Enable slow query logging
-slow_query_log_file = /var/log/mysql/slow.log
-long_query_time = 2                   # Log queries slower than 2 seconds
-
-# ============= Character Set =============
-character-set-server = utf8mb4    # Full Unicode support (important!)
-collation-server = utf8mb4_general_ci
-
-# ============= Security =============
-# (these are basic but good practice)
-local_infile = 0                  # Disable LOCAL file loading (security)

@@ -43,7 +43,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     sleep 5
 
     # Append SQL to MariaDB
-    printf "%s" "${SQL_COMMANDS}" | mariadb -u root
+    echo "${SQL_COMMANDS}" | mariadb -u root
 
     # Stop Temporary DB
     mariadb-admin shutdown
