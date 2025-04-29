@@ -6,6 +6,7 @@ set -e
 # Variable
 DOWNLOAD_DIR=./srcs/requirements/nginx/conf/rules
 NGINX_FILE=default.conf
+WP_DOCKERHOST=wp-0:9000
 
 # Create string
 NGINX_STR="server {\n"
@@ -23,14 +24,14 @@ NGINX_STR="${NGINX_STR}    root /var/www/html;\n"
 NGINX_STR="${NGINX_STR}    index index.php index.html index.htm;\n"
 NGINX_STR="${NGINX_STR}\n"
 NGINX_STR="${NGINX_STR}    location / {\n"
-NGINX_STR="${NGINX_STR}        try_files $uri $uri/ /index.php?$args;\n"
+NGINX_STR="${NGINX_STR}        try_files \$uri \$uri/ /index.php?\$args;\n"
 NGINX_STR="${NGINX_STR}    }\n"
 NGINX_STR="${NGINX_STR}\n"
 NGINX_STR="${NGINX_STR}    location ~ \.php$ {\n"
-NGINX_STR="${NGINX_STR}        try_files $uri =404;\n"
-NGINX_STR="${NGINX_STR}        fastcgi_split_path_info ^(.+\.php)(/.+)$;\n"
+NGINX_STR="${NGINX_STR}        try_files \$uri =404;\n"
+NGINX_STR="${NGINX_STR}        fastcgi_split_path_info ^(.+\.php)(/.+)\$;\n"
 NGINX_STR="${NGINX_STR}        include fastcgi.conf;\n"
-NGINX_STR="${NGINX_STR}        fastcgi_pass wp-0:9000;\n"
+NGINX_STR="${NGINX_STR}        fastcgi_pass ${WP_DOCKERHOST};\n"
 NGINX_STR="${NGINX_STR}        fastcgi_index index.php;\n"
 NGINX_STR="${NGINX_STR}    }\n"
 NGINX_STR="${NGINX_STR}\n"
