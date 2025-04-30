@@ -1,15 +1,15 @@
-FROM alpine:3.20
+FROM debian:bullseye
 
-# Install Mariadb
-RUN apk add --no-cache mariadb \
-                        mariadb-client \
-                        mariadb-server-utils
+# Install dependencies and MariaDB server
+RUN apt-get update && \
+    apt-get install -y mariadb-server mariadb-client && \
+    rm -rf /var/lib/apt/lists/*
 
 # Setup dir for mysql user
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 # Copy Configuration file
-COPY ./conf /etc/my.cnf.d
+COPY ./conf /etc/mysql/mariadb.conf.d/
 
 # Expose Port
 EXPOSE 3306
