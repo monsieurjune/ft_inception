@@ -12,9 +12,7 @@ set +a
 WORDPRESS_URL="https://${DOMAIN_NAME}"
 
 # Create php directories
-if [ ! -d /run/php ]; then
-    mkdir -p /run/php
-fi
+mkdir -p /run/php
 
 # Wait for db to work
 sleep 10
@@ -42,6 +40,15 @@ if ! wp core is-installed --allow-root --path="/var/www/html"; then
         --admin_password="${WORDPRESS_ADMIN_PASSWORD}" \
         --admin_email="${WORDPRESS_ADMIN_EMAIL}" \
         --skip-email \
+        --path=/var/www/html \
+        --allow-root
+fi
+
+# Create Standard User
+if [ ! $(wp user get $WORDPRESS_FIRST_USER --path=/var/www/html --allow-root) ]; then
+    wp user create $WORDPRESS_FIRST_USER $WORDPRESS_FIRST_EMAIL \
+        --role=subscriber \
+        --user_pass="${WORDPRESS_FIRST_PASSWORD}" \
         --path=/var/www/html \
         --allow-root
 fi
