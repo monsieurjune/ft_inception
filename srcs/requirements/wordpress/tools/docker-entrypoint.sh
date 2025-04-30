@@ -9,7 +9,7 @@ set -a
 set +a
 
 # Set Variable
-WORDPRESS_URL="https://${DOMAIN_NAME}:8443"
+WORDPRESS_URL="https://${DOMAIN_NAME}"
 
 # Create php directories
 if [ ! -d /run/php ]; then
