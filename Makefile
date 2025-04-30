@@ -102,9 +102,7 @@ $(DB_ROOT_PWD_FILE):
 GEN_FILES	:= $(ENV_FILE) \
 				$(NGINX_RULE_FILE) \
 				$(NGINX_SSL_CRT) \
-				$(NGINX_SSL_KEY) \
-				$(WP_CLI_FILE) \
-				$(WP_SRCS_DIR)
+				$(NGINX_SSL_KEY)
 
 # Project Rules
 

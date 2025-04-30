@@ -9,4 +9,4 @@ set -a
 set +a
 
 # Run cmd
-sh $2
+bash $2
