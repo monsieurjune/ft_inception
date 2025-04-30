@@ -17,7 +17,7 @@ WRAPPER			:= $(SHELL) $(REQ_DIR)/tools/wrapper.sh $(ENV_FILE)
 COMPOSE_FILE	:= $(SRC_DIR)/docker-compose.yml
 
 # PHONY
-.PHONY: gen genenv gennginx genwp up start stop down fdown reset check
+.PHONY: gen genenv gennginx genwp up start stop down fdown reset delconfig
 
 # Source Tools Rule
 genenv: $(ENV_FILE)
@@ -57,6 +57,14 @@ $(WP_SRCS_DIR):
 $(WP_CLI_FILE):
 	@$(WRAPPER) $(WP_DIR)/tools/download-wp-cli.sh
 
+# All generate file
+GEN_FILES	:= $(ENV_FILE) \
+				$(NGINX_RULE_FILE) \
+				$(NGINX_SSL_CRT) \
+				$(NGINX_SSL_KEY) \
+				$(WP_CLI_FILE) \
+				$(WP_SRCS_DIR)
+
 # Project Rules
 
 gen: genenv gennginx genwp
@@ -78,5 +86,8 @@ down:
 
 fdown:
 	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) down -v
+
+delconfig:
+	rm -rf $(GEN_FILES)
 
 reset: fdown up
