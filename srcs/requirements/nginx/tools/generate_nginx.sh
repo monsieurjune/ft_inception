@@ -6,7 +6,7 @@ set -e
 # Variable
 DOWNLOAD_DIR=./srcs/requirements/nginx/conf/rules
 NGINX_FILE=default.conf
-WP_DOCKERHOST=wp-0:9000
+WP_DOCKERHOST=wordpress:9000
 
 # Create string
 NGINX_STR="server {\n"

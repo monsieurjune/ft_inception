@@ -1,16 +1,16 @@
 services:
-  db-0:
+  mariadb:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-    image: ft-mariadb:1.0
-    container_name: ft-inception-db-0
+    image: mariadb:1.0
+    container_name: mariadb
     networks:
       - inception-network
     expose:
       - 3306
     volumes:
-      - ft-inception-db-data:/var/lib/mysql:rw
+      - DB:/var/lib/mysql:rw
     secrets:
       - db_password
       - db_root_password
@@ -23,61 +23,61 @@ services:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
     restart: always
 
-  wp-0:
+  wordpress:
     depends_on:
-      - db-0
+      - mariadb
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
-    image: ft_wordpress:1.0
-    container_name: ft-inception-wp-0
+    image: wordpress:1.0
+    container_name: wordpress
     networks:
       - inception-network
     expose:
       - 9000
     volumes:
-      - ft-inception-wp-data:/var/www/html:rw
+      - Wordpress:/var/www/html:rw
     secrets:
       - credentials
       - db_password
     env_file:
       - .env
     environment:
-      WORDPRESS_DB_HOST: db-0:3306
+      WORDPRESS_DB_HOST: mariadb:3306
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
       WORDPRESS_DB_USER: ${MYSQL_USER}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
     restart: always
 
-  ws-0:
+  nginx:
     depends_on:
-      - wp-0
+      - wordpress
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
-    image: ft-nginx:1.0
-    container_name: ft-inception-ws-0
+    image: nginx:1.0
+    container_name: nginx
     networks:
       - inception-network
     ports:
       - "443:443"
     volumes:
-      - ft-inception-wp-data:/var/www/html:ro
+      - Wordpress:/var/www/html:ro
     restart: always
 
 volumes:
-  ft-inception-db-data:
+  DB:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${HOME}/data/db
-  ft-inception-wp-data:
+      device: ${HOME}/data/database
+  Wordpress:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${HOME}/data/wp
+      device: ${HOME}/data/wordpress
 
 networks:
   inception-network:
