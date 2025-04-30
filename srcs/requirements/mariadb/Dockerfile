@@ -14,6 +14,9 @@ COPY ./conf /etc/mysql/mariadb.conf.d/
 # Expose Port
 EXPOSE 3306
 
+# Clear Data Direcory (Somehow it crucial for image)
+RUN rm -rf /var/lib/mysql/*
+
 # Copy entrypoint
 COPY ./tools/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
