@@ -1,5 +1,5 @@
 # Project Properties
-SHELL			:= /usr/bin/env sh
+SHELL			:= /usr/bin/env bash
 DOCKER_COMPOSE	:= docker compose
 
 # ======= Source =======
