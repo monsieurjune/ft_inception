@@ -6,7 +6,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Setup dir for mysql user
-RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
+RUN mkdir -p /run/mysqld && \
+    chown -R mysql:mysql /run/mysqld && \
+    chown -R mysql:mysql /var/lib/mysql
 
 # Copy Configuration file
 COPY ./conf /etc/mysql/mariadb.conf.d/
@@ -14,7 +16,7 @@ COPY ./conf /etc/mysql/mariadb.conf.d/
 # Expose Port
 EXPOSE 3306
 
-# Clear Data Direcory (Somehow it crucial for image)
+# Clear Data Direcory, because i want clean DB
 RUN rm -rf /var/lib/mysql/*
 
 # Copy entrypoint

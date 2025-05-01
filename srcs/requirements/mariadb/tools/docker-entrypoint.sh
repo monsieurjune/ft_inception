@@ -35,7 +35,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     service mariadb start
 
     # Simple Sleep (it should be around 2-5 sec)
-    sleep 20
+    sleep 10
 
     # Append SQL to MariaDB
     echo -e $SQL_COMMANDS | mariadb -u root
@@ -45,4 +45,4 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 fi
 
 # Execute MariaDB as mysql
-exec su mysql -s /bin/sh -c "exec mariadbd"
+exec mariadbd --user=mysql
