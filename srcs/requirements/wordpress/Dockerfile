@@ -38,8 +38,7 @@ COPY ./tools/wp-cli.phar /usr/local/bin/wp
 COPY ./tools/docker-entrypoint.sh /docker-entrypoint.sh 
 
 # Set script to be executable
-RUN chmod +x /docker-entrypoint.sh && \
-    chmod +x /usr/local/bin/wp
+RUN chmod +x /docker-entrypoint.sh /usr/local/bin/wp
 
 # Run wordpress
 ENTRYPOINT [ "/docker-entrypoint.sh" ]

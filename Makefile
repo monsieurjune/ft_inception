@@ -21,6 +21,7 @@ COMPOSE_FILE	:= $(SRC_DIR)/docker-compose.yml
 		stop \
 		restart \
 		down \
+		re \
 		fdown \
 		reset \
 		delconfig
@@ -128,6 +129,8 @@ down:
 
 fdown:
 	@$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) down -v
+
+re: down up
 
 delconfig:
 	rm -rf $(GEN_FILES)
