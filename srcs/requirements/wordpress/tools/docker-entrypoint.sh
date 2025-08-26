@@ -9,7 +9,7 @@ set -a
 set +a
 
 # Set Variable
-WORDPRESS_URL="https://${DOMAIN_NAME}"
+WORDPRESS_URL="https://${DOMAIN_NAME}:${HTTPS_PORT}"
 
 # Create php directories
 mkdir -p /run/php

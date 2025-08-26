@@ -6,6 +6,7 @@ set -e
 # Read user input
 echo "============== CREATE ENV ================"
 printf "%s" "DOMAIN_NAME [default: localhost]: "; read DOMAIN_NAME
+printf "%s" "HTTPS_PORT [default: 443]: "; read HTTPS_PORT
 printf "%s" "MYSQL_DATABASE [default: db]: "; read MYSQL_DATABASE
 printf "%s" "MYSQL_USER: [default: user]: "; read MYSQL_USER
 printf "%s" "SSL_COUNTRY [default: <blank>]: "; read SSL_COUNTRY
@@ -18,6 +19,9 @@ printf "%s" "SSL_DAY_AGE [default: 365]: "; read SSL_DAY_AGE
 # Set default value
 if [ -z "$DOMAIN_NAME" ]; then
     DOMAIN_NAME=localhost
+fi
+if [ -z "$HTTPS_PORT" ]; then
+    HTTPS_PORT=443
 fi
 if [ -z "$MYSQL_DATABASE" ]; then
     MYSQL_DATABASE=db
@@ -46,6 +50,7 @@ fi
 
 # Create String for .env
 ENV_STR="DOMAIN_NAME=${DOMAIN_NAME}\n"
+ENV_STR="${ENV_STR}HTTPS_PORT=${HTTPS_PORT}\n"
 ENV_STR="${ENV_STR}MYSQL_DATABASE=${MYSQL_DATABASE}\n"
 ENV_STR="${ENV_STR}MYSQL_USER=${MYSQL_USER}\n"
 ENV_STR="${ENV_STR}SSL_COUNTRY=${SSL_COUNTRY}\n"
