@@ -33,11 +33,12 @@ COPY ./tools/wordpress /var/www/html
 
 # Copy wp-cli
 COPY ./tools/wp-cli.phar /usr/local/bin/wp
-RUN chmod +x /usr/local/bin/wp
 
 # Copy entrypoint
 COPY ./tools/docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
+
+# Set script to be executable
+RUN chmod +x /docker-entrypoint.sh /usr/local/bin/wp
 
 # Run wordpress
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
