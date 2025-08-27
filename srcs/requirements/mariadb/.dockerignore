@@ -9,7 +9,3 @@ docker-compose.yml~
 # Ignore OS files
 **/.DS_Store
 **/Thumbs.db
-
-# Ignore Tools
-tools/
-!tools/docker-entrypoint.sh
