@@ -9,6 +9,7 @@ printf "%s" "DOMAIN_NAME [default: localhost]: "; read DOMAIN_NAME
 printf "%s" "HTTPS_PORT [default: 443]: "; read HTTPS_PORT
 printf "%s" "MYSQL_DATABASE [default: db]: "; read MYSQL_DATABASE
 printf "%s" "MYSQL_USER: [default: user]: "; read MYSQL_USER
+printf "%s" "REDIS_PASSWORD: [default: <none>]: "; read -s REDIS_PASSWORD; echo ''
 printf "%s" "SSL_COUNTRY [default: <blank>]: "; read SSL_COUNTRY
 printf "%s" "SSL_STATE [default: <blank>]: "; read SSL_STATE
 printf "%s" "SSL_LOCALITY [default: <blank>]: "; read SSL_LOCALITY
@@ -53,6 +54,7 @@ ENV_STR="DOMAIN_NAME=${DOMAIN_NAME}\n"
 ENV_STR="${ENV_STR}HTTPS_PORT=${HTTPS_PORT}\n"
 ENV_STR="${ENV_STR}MYSQL_DATABASE=${MYSQL_DATABASE}\n"
 ENV_STR="${ENV_STR}MYSQL_USER=${MYSQL_USER}\n"
+ENV_STR="${ENV_STR}REDIS_PASSWORD=${REDIS_PASSWORD}\n"
 ENV_STR="${ENV_STR}SSL_COUNTRY=${SSL_COUNTRY}\n"
 ENV_STR="${ENV_STR}SSL_STATE=${SSL_STATE}\n"
 ENV_STR="${ENV_STR}SSL_LOCALITY=${SSL_LOCALITY}\n"

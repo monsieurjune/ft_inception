@@ -39,8 +39,8 @@ services:
       - inception-network
     expose:
       - 6379
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    env_file:
+      - .env
     restart: always
     healthcheck:
       test: ["CMD", "/healthcheck.sh"]

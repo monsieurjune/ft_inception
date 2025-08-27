@@ -26,7 +26,8 @@ RUN adduser -S -D -H -s /sbin/nologin -G www-data www-data && \
     ln -s /usr/bin/php82 /usr/bin/php
 
 # Copy Configuration Files
-COPY ./conf /etc/php82/php-fpm.d/
+COPY ./conf/www.conf /etc/php82/php-fpm.d/www.conf
+COPY ./conf/extra.php /var/www/tmp/extra.php
 
 # Copy wordpress
 COPY ./tools/wordpress /var/www/html
