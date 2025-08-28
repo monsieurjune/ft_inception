@@ -9,7 +9,11 @@ set -a
 set +a
 
 # Set Variable
-WORDPRESS_URL="https://${DOMAIN_NAME}:${HTTPS_PORT}"
+if [ "$HTTPS_PORT" -eq 443 ]; then
+    WORDPRESS_URL="https://${DOMAIN_NAME}"
+else
+    WORDPRESS_URL="https://${DOMAIN_NAME}:${HTTPS_PORT}"
+fi
 EXTRA_PHP_FILE="/var/www/tmp/extra.php"
 
 # Create php directories
