@@ -9,7 +9,7 @@ set -a
 set +a
 
 # Set Variable
-if [ "$HTTPS_PORT" -eq 443 ]; then
+if [ "$HTTPS_PORT" -eq "443" ]; then
     WORDPRESS_URL="https://${DOMAIN_NAME}"
 else
     WORDPRESS_URL="https://${DOMAIN_NAME}:${HTTPS_PORT}"
