@@ -39,6 +39,8 @@ services:
       - inception-network
     expose:
       - 6379
+    volumes:
+      - Redis:/var/lib/redis:rw
     env_file:
       - .env
     restart: always
@@ -108,6 +110,12 @@ volumes:
       type: none
       o: bind
       device: ${HOME}/data/wordpress
+  Redis:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/redis
 
 networks:
   inception-network:

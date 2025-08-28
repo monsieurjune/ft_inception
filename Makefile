@@ -68,15 +68,19 @@ $(WP_CLI_FILE):
 DATA_DIR		:= $(HOME)/data
 DATABASE_DIR	:= $(DATA_DIR)/database
 WORDPRESS_DIR	:= $(DATA_DIR)/wordpress
+REDIS_DIR		:= $(DATA_DIR)/redis
 
 # Data Rules
-gendata:	$(DATABASE_DIR) $(WORDPRESS_DIR)
+gendata:	$(DATABASE_DIR) $(WORDPRESS_DIR) $(REDIS_DIR)
 
 $(DATABASE_DIR):
 	mkdir -p $(DATABASE_DIR)
 
 $(WORDPRESS_DIR):
 	mkdir -p $(WORDPRESS_DIR)
+
+$(REDIS_DIR):
+	mkdir -p $(REDIS_DIR)
 
 # ======= Secret =======
 SECRET_DIR			:= ./secrets
