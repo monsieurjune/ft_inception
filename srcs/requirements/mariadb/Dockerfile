@@ -13,15 +13,16 @@ RUN mkdir -p /run/mysqld && \
 # Copy Configuration file
 COPY ./conf /etc/mysql/mariadb.conf.d/
 
-# Expose Port
-EXPOSE 3306
-
-# Clear Data Direcory, because i want clean DB
+# Clear Data Direcory, because i want the clean DB to work on, not the pre setup
 RUN rm -rf /var/lib/mysql/*
 
-# Copy entrypoint
-COPY ./tools/docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
+# Copy scripts and make them executable
+COPY ./tools/docker-entrypoint.sh /docker-entrypoint.sh
+COPY ./tools/healthcheck.sh /healthcheck.sh
+RUN chmod +x /docker-entrypoint.sh /healthcheck.sh
+
+# Expose Port
+EXPOSE 3306
 
 # Start MariaDB
 ENTRYPOINT [ "/docker-entrypoint.sh" ]

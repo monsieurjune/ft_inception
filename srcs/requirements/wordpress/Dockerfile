@@ -26,18 +26,20 @@ RUN adduser -S -D -H -s /sbin/nologin -G www-data www-data && \
     ln -s /usr/bin/php82 /usr/bin/php
 
 # Copy Configuration Files
-COPY ./conf /etc/php82/php-fpm.d/
+COPY ./conf/www.conf /etc/php82/php-fpm.d/www.conf
+COPY ./conf/extra.php /var/www/tmp/extra.php
 
 # Copy wordpress
 COPY ./tools/wordpress /var/www/html
 
 # Copy wp-cli
 COPY ./tools/wp-cli.phar /usr/local/bin/wp
-RUN chmod +x /usr/local/bin/wp
 
 # Copy entrypoint
-COPY ./tools/docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
+COPY ./tools/docker-entrypoint.sh /docker-entrypoint.sh 
+
+# Set script to be executable
+RUN chmod +x /docker-entrypoint.sh /usr/local/bin/wp
 
 # Run wordpress
 ENTRYPOINT [ "/docker-entrypoint.sh" ]

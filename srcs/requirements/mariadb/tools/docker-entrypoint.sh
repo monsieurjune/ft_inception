@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Set to exit when cmd return non-zero
+# Set to exit on error
 set -e
 
 # ===== SQL Code ======

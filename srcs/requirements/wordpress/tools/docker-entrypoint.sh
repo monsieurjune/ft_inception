@@ -9,7 +9,8 @@ set -a
 set +a
 
 # Set Variable
-WORDPRESS_URL="https://${DOMAIN_NAME}"
+WORDPRESS_URL="https://${DOMAIN_NAME}:${HTTPS_PORT}"
+EXTRA_PHP_FILE="/var/www/tmp/extra.php"
 
 # Create php directories
 mkdir -p /run/php
@@ -28,11 +29,13 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --dbuser="${WORDPRESS_DB_USER}" \
         --dbpass="$(cat ${WORDPRESS_DB_PASSWORD_FILE})" \
         --path=/var/www/html \
-        --allow-root
+        --allow-root \
+        --extra-php \
+        < $EXTRA_PHP_FILE
 fi
 
 # Install wordpress
-if ! wp core is-installed --allow-root --path="/var/www/html"; then
+if [ ! $(wp core is-installed --allow-root --path=/var/www/html) ] ; then
     wp core install \
         --url="${WORDPRESS_URL}" \
         --title="${WORDPRESS_TITLE}" \
@@ -44,8 +47,15 @@ if ! wp core is-installed --allow-root --path="/var/www/html"; then
         --allow-root
 fi
 
+# Install redis plugin
+if [ ! $(wp plugin is-installed redis-cache --allow-root --path=/var/www/html) ]; then
+    wp plugin install redis-cache --allow-root --path=/var/www/html
+fi
+wp plugin activate redis-cache --allow-root --path=/var/www/html
+wp redis enable --allow-root --path=/var/www/html
+
 # Create Standard User
-if [ ! $(wp user get $WORDPRESS_FIRST_USER --path=/var/www/html --allow-root) ]; then
+if [ ! $(wp user get $WORDPRESS_FIRST_USER --allow-root --path=/var/www/html) ]; then
     wp user create $WORDPRESS_FIRST_USER $WORDPRESS_FIRST_EMAIL \
         --role=subscriber \
         --user_pass="${WORDPRESS_FIRST_PASSWORD}" \
